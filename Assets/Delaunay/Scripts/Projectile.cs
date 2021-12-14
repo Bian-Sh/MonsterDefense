@@ -26,7 +26,9 @@ using UnityEngine;
 
 namespace GK {
 	public class Projectile : MonoBehaviour {
-
+		[Header("…À∫¶")]
+		public float AT = 300;
+		
 		IEnumerator Start() {
 			yield return new WaitForSeconds(5.0f);
 			Destroy(gameObject);
