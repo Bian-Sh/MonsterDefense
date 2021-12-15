@@ -58,7 +58,6 @@ namespace GK {
 			rg.velocity = InitialSpeed * SpawnLocation.forward;
 			var fire = Instantiate(gunfire,SpawnLocation.position,SpawnLocation.rotation,SpawnLocation);
 			fire.transform.localEulerAngles = new Vector3(0,-90,0);
-			fire.transform.localScale *= 0.5f;
 			audioSource.Play();
 
 

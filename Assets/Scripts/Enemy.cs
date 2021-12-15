@@ -1,8 +1,9 @@
 ﻿using GK;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -16,9 +17,12 @@ public class Enemy : MonoBehaviour
     public float HP = 3000f;
     [Header("攻击")]
     public float AT = 300f;
+    public EnemyEvent OnEnemyHited = new EnemyEvent();
 
+    private float cached_HP;
     void Start()
     {
+        cached_HP = HP;
         AT = Random.Range(200, 500);
         tower = GameObject.FindGameObjectWithTag("Tower").transform;
         Invoke("Run", 发呆);
@@ -56,16 +60,17 @@ public class Enemy : MonoBehaviour
                 agent.isStopped = true;
                 animator.SetTrigger("死亡");
                 // Todo 消亡 ： Unity Shader 溶解
-
                 //Destroy(gameObject,2f);// 延迟销毁自身
             }
             else
             {
-
                 animator.SetTrigger("受伤害");
-
             }
+            OnEnemyHited.Invoke(HP / cached_HP);
         }
         Debug.Log($"{nameof(Enemy)}: 血量 = {HP}");
     }
+
+    [Serializable]
+    public class EnemyEvent : UnityEvent<float> { }
 }
