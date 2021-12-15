@@ -2,23 +2,6 @@
 using UnityEngine.UI;
 using System;
 
-#if UNITY_EDITOR
-using UnityEditor;
-[CustomEditor(typeof(BloodBar))]
-class BloodBarEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("定位到角色"))
-        {
-            var bar = target as BloodBar;
-            bar.CaculatePosition();
-        }
-    }
-}
-#endif
-
 public class BloodBar : MonoBehaviour
 {
     public Image image; //血条
@@ -58,7 +41,7 @@ public class BloodBar : MonoBehaviour
 
     public void CaculatePosition()
     {
-        image.transform.position = target.position + offset;
+        transform.LookAt(Camera.main.transform);
     }
 
 }
