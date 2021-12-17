@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using static WaveManager;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
@@ -18,6 +19,9 @@ public class Enemy : MonoBehaviour
     [Header("攻击")]
     public float AT = 300f;
     public EnemyEvent OnEnemyHited = new EnemyEvent();
+
+    [HideInInspector]
+    public Wave wave; //我是属于谁的 （Wave）
 
     private float cached_HP;
     void Start()
@@ -69,6 +73,11 @@ public class Enemy : MonoBehaviour
             OnEnemyHited.Invoke(HP / cached_HP);
         }
         Debug.Log($"{nameof(Enemy)}: 血量 = {HP}");
+    }
+
+    private void OnDestroy()
+    {
+        wave.enemys.Remove(gameObject);
     }
 
     [Serializable]
