@@ -24,15 +24,26 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace GK {
-	public class Projectile : MonoBehaviour {
-		[Header("…À∫¶")]
-		public float AT = 300;
-		
-		IEnumerator Start() {
-			yield return new WaitForSeconds(5.0f);
-			Destroy(gameObject);
-		}
+namespace GK
+{
+    public class Projectile : MonoBehaviour, IAttack
+    {
+        [Header("…À∫¶")]
+        public float aT = 300;
 
-	}
+        public float AT { get; set; }
+
+        void Awake()
+        {
+            AT = aT;
+        }
+
+
+        IEnumerator Start()
+        {
+            yield return new WaitForSeconds(5.0f);
+            Destroy(gameObject);
+        }
+
+    }
 }

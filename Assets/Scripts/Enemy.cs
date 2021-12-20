@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using static WaveManager;
 using Random = UnityEngine.Random;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
 {
     public NavMeshAgent agent;
     public Transform tower;
@@ -17,13 +17,18 @@ public class Enemy : MonoBehaviour
     [Header("血量")]
     public float HP = 3000f;
     [Header("攻击")]
-    public float AT = 300f;
-    public EnemyEvent OnEnemyHited = new EnemyEvent();
+    public float aT = 300f;
 
     [HideInInspector]
     public Wave wave; //我是属于谁的 （Wave）
 
     private float cached_HP;
+
+    public BloodEvent OnBloodChanged { get; set; } = new BloodEvent { };
+    public float AT { get; set ; }
+
+    void Awake() => AT = aT;
+
     void Start()
     {
         cached_HP = HP;
@@ -70,7 +75,7 @@ public class Enemy : MonoBehaviour
             {
                 animator.SetTrigger("受伤害");
             }
-            OnEnemyHited.Invoke(HP / cached_HP);
+            OnBloodChanged.Invoke(HP/cached_HP);
         }
         Debug.Log($"{nameof(Enemy)}: 血量 = {HP}");
     }

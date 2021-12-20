@@ -23,12 +23,14 @@ public class WaveManager : MonoBehaviour
 
     [Header("当所有的波次都生成完毕时执行的事件")]
     public WaveEvent OnAllWaveFinished = new WaveEvent();
+    Coroutine enemyCreateAction; //敌人生成的行为载体
+
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(CreateEnemy());
+            StartCreateEnemy();
         }
     }
 
@@ -36,12 +38,12 @@ public class WaveManager : MonoBehaviour
     {
         foreach (var item in waves)
         {
+            if (!item.enable) continue;
             for (int i = 0; i < item.num; i++)
             {
-                if (!item.enable) continue;
 
                 Debug.Log($"{nameof(WaveManager)}: 波次名称 = {item.name}");
-                
+
                 var delay = new WaitForSeconds(item.interval); // 怪兽生成的间隔
                 var index = Random.Range(0, item.prefabs.Length); // 随机一个怪兽的下标
                 var enemy = Instantiate<GameObject>(item.prefabs[index]); // 承上启下，生成怪兽
@@ -72,6 +74,28 @@ public class WaveManager : MonoBehaviour
         OnAllWaveFinished.Invoke();
     }
 
+    /// <summary>
+    /// 开始生成敌人
+    /// </summary>
+    public void StartCreateEnemy() 
+    {
+        if (enemyCreateAction==null)
+        {
+            enemyCreateAction = StartCoroutine(CreateEnemy());
+        }
+    }
+
+    /// <summary>
+    /// 停止生成敌人
+    /// </summary>
+    public void StopCreateEnemy() 
+    {
+        if (null!=enemyCreateAction)
+        {
+            StopCoroutine(enemyCreateAction);
+            enemyCreateAction = null;
+        }
+    }
 
     [Serializable]
     public class WaveEvent : UnityEvent { }

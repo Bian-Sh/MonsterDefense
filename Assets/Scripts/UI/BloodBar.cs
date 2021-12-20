@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
-
+using DG.Tweening;
 public class BloodBar : MonoBehaviour
 {
     public Image image; //血条
@@ -12,13 +12,13 @@ public class BloodBar : MonoBehaviour
 
     void Start()
     {
-        var Enemy = target.GetComponentInChildren<Enemy>();
-        Enemy.OnEnemyHited.AddListener(OnEnemyHitted);
+        var Enemy = target.GetComponentInChildren<IBloodPercentage>();
+        Enemy.OnBloodChanged.AddListener(OnBloodChanged);
     }
 
-    private void OnEnemyHitted(float arg0)
+    private void OnBloodChanged(float arg0)
     {
-        image.fillAmount = arg0;
+        image.DOFillAmount(arg0,0.5F);
     }
 
     void Update()
@@ -45,3 +45,14 @@ public class BloodBar : MonoBehaviour
     }
 
 }
+
+/// <summary>
+/// 血量
+/// </summary>
+public interface IBloodPercentage 
+{
+    BloodEvent OnBloodChanged { get; set; }
+}
+
+[Serializable]
+public class BloodEvent : UnityEngine.Events.UnityEvent<float> { };
