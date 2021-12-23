@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
         {
             var 子弹 = collision.collider.GetComponent<Projectile>();
             HP -= 子弹.AT;
-
+            ScoreManager.Instance.score += 20;
             if (HP <= 0f)
             {
                 agent.isStopped = true;

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class RankPanel : MonoBehaviour
 {
-    private void Start() => FillData();
+    private void OnEnable() => FillData();
     public GameObject prefab;
     public Transform array_root;
 

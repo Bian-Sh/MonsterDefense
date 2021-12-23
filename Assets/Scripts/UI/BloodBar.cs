@@ -41,7 +41,7 @@ public class BloodBar : MonoBehaviour
 
     public void CaculatePosition()
     {
-        transform?.LookAt(Camera.main.transform);
+        transform?.LookAt(Camera.main?.transform);
     }
 
 }

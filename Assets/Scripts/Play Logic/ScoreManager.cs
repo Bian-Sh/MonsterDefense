@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     public int score;
     [SerializeField, Header("取值的KEY")]
     private string key = "ScoreManager_Info_9527";
-
+    private Score score_data;
     #region 单例
     public static ScoreManager Instance { get; private set; }
 
@@ -59,12 +59,20 @@ public class ScoreManager : MonoBehaviour
     public void Save()
     {
         // 构建一个分数的数据实例
-        var data = new Score
+        if (score_data == null)
         {
-            name = GameManager.Instance.player,
-            score = score,
-            date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-        };
+            score_data = new Score
+            {
+                name = GameManager.Instance.player,
+                score = score,
+                date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            };
+        }
+        else
+        {
+            score_data.score = score;
+            score_data.date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
 
         // 在解决溢出的情况下填充数据
         while (rank.rank.Count >= capacity)
@@ -72,7 +80,11 @@ public class ScoreManager : MonoBehaviour
             rank.rank.RemoveAt(0);
         }
 
-        rank.rank.Add(data);
+        // 如果排行榜中已经存在，则无须再次插入该笔数据
+        if (!rank.rank.Contains(score_data))
+        {
+            rank.rank.Add(score_data);
+        }
 
         //  反序列化数据到 json
         var json = JsonUtility.ToJson(rank);

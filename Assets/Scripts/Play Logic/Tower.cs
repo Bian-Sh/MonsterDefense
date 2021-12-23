@@ -19,6 +19,7 @@ public class Tower : MonoBehaviour, IBloodPercentage
         {
             var at = other.GetComponentInChildren<IAttack>();
             var go = at as Object;
+       
             if (go.name.Contains("Projectile"))
             {
                 var value = Random.Range(0, 10) >= 5;

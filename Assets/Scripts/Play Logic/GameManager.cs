@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     [Space(10)]
     /// <summary>昵称</summary>
     public List<string> nickName;
+    public TouchPadClickEventDispatcher touchPadClickEventDispatcher;
+
+    public GameObject panel;
+    
 
     /// <summary>
     /// 当前的玩家
@@ -41,9 +45,31 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    
+
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         Debug.Log($"{nameof(GameManager)}: 场景价值完毕，当前场景为： {arg0.name}");
+        touchPadClickEventDispatcher = FindObjectOfType<TouchPadClickEventDispatcher>();
+        touchPadClickEventDispatcher.OnTouchPadClicked.AddListener(OnTouchPadClicked);
+        panel = GameObject.Find("Tower/Canvas/RankPanel");
+    }
+
+    private void OnTouchPadClicked(TouchPadDirection arg0)
+    {
+        return;
+        if (arg0== TouchPadDirection.Bottom)
+        {
+            panel.SetActive(true);
+        }
+        else if(arg0 == TouchPadDirection.Up)
+        {
+            panel.SetActive(false);
+        }
+        else if (arg0== TouchPadDirection.Left)
+        {
+            ScoreManager.Instance.Save();
+        }
 
     }
 
@@ -57,6 +83,13 @@ public class GameManager : MonoBehaviour
             var info = File.ReadAllLines(path);
             nickName = new List<string>(info);
         }
+        waveManager.OnAllWaveFinished.AddListener(OnAllWaveFinished);
+    }
+
+    private void OnAllWaveFinished()
+    {
+        ScoreManager.Instance.Save();
+        panel.SetActive(true);
     }
 
     /// <summary>
