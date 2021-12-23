@@ -1696,7 +1696,7 @@ MonoBehaviour:
       factor: 1
       enemys: []
     - name: "\u5FC3\u4E2D\u4E9B\u8BB8\u9A9A\u52A8\u7684\u508D\u665A"
-      enable: 0
+      enable: 1
       prefabs:
       - {fileID: 8681639381522543348, guid: b725b24eaf242954c80ba3a2315e911a, type: 3}
       - {fileID: 8681639381522543348, guid: d3f78f7a9832a154d9bcd200b436dc11, type: 3}
@@ -1707,7 +1707,7 @@ MonoBehaviour:
       factor: 1.5
       enemys: []
     - name: "\u5E73\u6DE1\u5982\u5F80\u65E5\u7684\u5348\u540E"
-      enable: 0
+      enable: 1
       prefabs:
       - {fileID: 8681639381522543348, guid: b725b24eaf242954c80ba3a2315e911a, type: 3}
       - {fileID: 8681639381522543348, guid: d3f78f7a9832a154d9bcd200b436dc11, type: 3}

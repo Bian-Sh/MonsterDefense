@@ -5,7 +5,11 @@ using Random = UnityEngine.Random;
 
 public class Tower : MonoBehaviour, IBloodPercentage
 {
+    /// <summary>
+    /// 事件：当血量发生变化时
+    /// </summary>
     public BloodEvent OnBloodChanged { get; set; } = new BloodEvent();
+    /// <summary> 事件：当塔被销毁时 </summary>
     public TowerEvent OnTowerDestroy = new TowerEvent();
     public float HP;
     private float HP_Cached;

@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public TouchPadClickEventDispatcher touchPadClickEventDispatcher;
 
     public GameObject panel;
-    
+
 
     /// <summary>
     /// 当前的玩家
@@ -45,32 +45,22 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    
+
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        Debug.Log($"{nameof(GameManager)}: 场景价值完毕，当前场景为： {arg0.name}");
-        touchPadClickEventDispatcher = FindObjectOfType<TouchPadClickEventDispatcher>();
-        touchPadClickEventDispatcher.OnTouchPadClicked.AddListener(OnTouchPadClicked);
-        panel = GameObject.Find("Tower/Canvas/RankPanel");
+        Debug.Log($"{nameof(GameManager)}: 场景加载完毕，当前场景为： {arg0.name}");
+        if (arg0.name == "MainScene")
+        {
+            touchPadClickEventDispatcher = FindObjectOfType<TouchPadClickEventDispatcher>();
+            touchPadClickEventDispatcher.OnTouchPadClicked.AddListener(OnTouchPadClicked);
+            panel = GameObject.Find("Canvas/RankPanel");
+        }
     }
 
     private void OnTouchPadClicked(TouchPadDirection arg0)
     {
-        return;
-        if (arg0== TouchPadDirection.Bottom)
-        {
-            panel.SetActive(true);
-        }
-        else if(arg0 == TouchPadDirection.Up)
-        {
-            panel.SetActive(false);
-        }
-        else if (arg0== TouchPadDirection.Left)
-        {
-            ScoreManager.Instance.Save();
-        }
-
+        Debug.Log($"{nameof(GameManager)}: 你按下了 {arg0 } 键！");
     }
 
     private void Start()

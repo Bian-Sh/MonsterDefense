@@ -44,7 +44,9 @@ public class TouchPadClickEventDispatcher : MonoBehaviour
         else
         {
             //由于此方法打包时会被剥离，所以，我选择不使用宏包裹，声明：笔者对本行备注不负责
+#if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
+#endif
         }
     }
     [SerializeField, HideInInspector]

@@ -10,12 +10,12 @@ public class Hand : MonoBehaviour
 
     public void 抓握()
     {
-            animator.SetBool("抓握", true);
+        animator.SetBool("抓握", true);
     }
 
-    public void 丢枪() 
+    public void 丢枪()
     {
-            animator.SetBool("抓握", false);
+        animator.SetBool("抓握", false);
     }
 
     public void 开枪()
@@ -26,6 +26,8 @@ public class Hand : MonoBehaviour
     private void Reset()
     {
         animator = GetComponent<Animator>();
+#if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(this);
+#endif
     }
 }
