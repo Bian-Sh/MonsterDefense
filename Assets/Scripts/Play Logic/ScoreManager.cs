@@ -86,6 +86,9 @@ public class ScoreManager : MonoBehaviour
             rank.rank.Add(score_data);
         }
 
+        // 对分数进行排序
+        rank.rank.Sort((a,b)=>b.score-a.score);
+
         //  反序列化数据到 json
         var json = JsonUtility.ToJson(rank);
 

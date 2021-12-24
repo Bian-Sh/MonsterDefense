@@ -24,6 +24,8 @@ public class RankPanel : MonoBehaviour
         //加载数据
         ScoreManager.Instance.Load();
 
+        int index = 0; //当前数据位置
+
         // 本地函数，target ：目标 。 score ：分数数据
         void FillCell(Transform target, ScoreManager.Score score)
         {
@@ -35,15 +37,19 @@ public class RankPanel : MonoBehaviour
             var score_ = texts.FirstOrDefault(v => v.name == "score");
             // 下同，略~
             var date = texts.FirstOrDefault(v => v.name == "date");
+            // 下同，略~
+            var rank = texts.FirstOrDefault(v => v.name == "rank");
 
             // 开始赋值
+            rank.text =index.ToString();
             name.text = score.name;
             score_.text = score.score.ToString();
             date.text = score.date;
         }
-
         foreach (var item in ScoreManager.Instance.rank.rank)
         {
+            index++; //也可以使用 for 循环直接得到这个  数据排名
+
             var go = Instantiate(prefab);
             cells.Add(go);
             go.transform.SetParent(array_root, false);
