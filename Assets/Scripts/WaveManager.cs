@@ -47,6 +47,11 @@ public class WaveManager : MonoBehaviour
                 var delay = new WaitForSeconds(item.interval); // 怪兽生成的间隔
                 var index = Random.Range(0, item.prefabs.Length); // 随机一个怪兽的下标
                 var enemy = Instantiate<GameObject>(item.prefabs[index]); // 承上启下，生成怪兽
+              
+                var index_location = Random.Range(0, location.Count); //随机 出生点的下标
+             
+                enemy.transform.position = location[index_location].position+new Vector3(Random.Range(-5,5),0,Random.Range(-5, 5)); //将怪兽移动到给定到的位置
+                
                 item.enemys.Add(enemy); //记录我生成的怪兽
 
                 //  让 enemy 记住我属于那一波
@@ -57,8 +62,8 @@ public class WaveManager : MonoBehaviour
                 var agent = enemy.GetComponent<NavMeshAgent>();
                 agent.speed *= item.factor;
 
-                var index_location = Random.Range(0, location.Count); //随机 出生点的下标
-                enemy.transform.position = location[index_location].position; //将怪兽移动到给定到的位置
+                enemy.SetActive(true);
+
                 yield return delay;
             }
 

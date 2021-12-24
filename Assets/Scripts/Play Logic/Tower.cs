@@ -19,11 +19,12 @@ public class Tower : MonoBehaviour, IBloodPercentage
     }
     private void OnTriggerEnter(Collider other)
     {
+                Debug.Log($"{nameof(Tower)}:4545");
         if (HP > 0)
         {
             var at = other.GetComponentInChildren<IAttack>();
             var go = at as Object;
-       
+            if (!go) return;
             if (go.name.Contains("Projectile"))
             {
                 var value = Random.Range(0, 10) >= 5;

@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
 
     public BloodEvent OnBloodChanged { get; set; } = new BloodEvent { };
     public float AT { get; set ; }
+    private Collider m_collider;
 
     void Awake() => AT = aT;
 
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
         cached_HP = HP;
         AT = Random.Range(200, 500);
         tower = GameObject.FindGameObjectWithTag("Tower").transform;
+        m_collider = GetComponent<Collider>();
         Invoke("Run", 发呆);
     }
 
@@ -67,9 +69,9 @@ public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
             if (HP <= 0f)
             {
                 agent.isStopped = true;
+                m_collider.enabled = false;
                 animator.SetTrigger("死亡");
                 // Todo 消亡 ： Unity Shader 溶解
-                //Destroy(gameObject,2f);// 延迟销毁自身
             }
             else
             {

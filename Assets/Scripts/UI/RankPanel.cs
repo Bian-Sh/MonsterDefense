@@ -10,13 +10,22 @@ public class RankPanel : MonoBehaviour
     private void OnEnable() => FillData();
     public GameObject prefab;
     public Transform array_root;
+    //缓存 cell ，及时回收他们
+    private List<GameObject> cells = new List<GameObject>();
 
     private void FillData()
     {
+        // 填充数据前，应该清空 排行榜 UI
+        foreach (var item in cells)
+        {
+            Destroy(item);
+        }
+
+        //加载数据
         ScoreManager.Instance.Load();
 
         // 本地函数，target ：目标 。 score ：分数数据
-        void FillCell(Transform target ,ScoreManager.Score score)
+        void FillCell(Transform target, ScoreManager.Score score)
         {
             //获取子节点下的所有 Text 组件
             var texts = target.GetComponentsInChildren<Text>();
@@ -36,8 +45,9 @@ public class RankPanel : MonoBehaviour
         foreach (var item in ScoreManager.Instance.rank.rank)
         {
             var go = Instantiate(prefab);
+            cells.Add(go);
             go.transform.SetParent(array_root, false);
-            FillCell(go.transform,item); //填充 细胞 数据
+            FillCell(go.transform, item); //填充 细胞 数据
             go.SetActive(true);
         }
     }

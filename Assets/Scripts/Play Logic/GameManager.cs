@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
             touchPadClickEventDispatcher = FindObjectOfType<TouchPadClickEventDispatcher>();
             touchPadClickEventDispatcher.OnTouchPadClicked.AddListener(OnTouchPadClicked);
             panel = GameObject.Find("Canvas/RankPanel");
+            panel.SetActive(false);
         }
     }
 
