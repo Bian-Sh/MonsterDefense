@@ -53,6 +53,11 @@ public class ScoreManager : MonoBehaviour
         Debug.Log($"{nameof(ScoreManager)}: 用户加载了数据！请查询 ScoreManager 面板");
     }
 
+    internal void ResetData()
+    {
+        score = 0;
+    }
+
     /// <summary>
     /// 保存积分
     /// </summary>

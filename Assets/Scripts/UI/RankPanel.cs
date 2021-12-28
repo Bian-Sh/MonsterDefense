@@ -10,8 +10,19 @@ public class RankPanel : MonoBehaviour
     private void OnEnable() => FillData();
     public GameObject prefab;
     public Transform array_root;
+    public Button button_close;//关闭按钮
     //缓存 cell ，及时回收他们
     private List<GameObject> cells = new List<GameObject>();
+
+    private void Start()
+    {
+        button_close.onClick.AddListener(OnCloseButtonClicked);
+    }
+
+    private void OnCloseButtonClicked()
+    {
+        gameObject.SetActive(false);
+    }
 
     private void FillData()
     {

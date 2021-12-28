@@ -100,6 +100,13 @@ public class WaveManager : MonoBehaviour
             StopCoroutine(enemyCreateAction);
             enemyCreateAction = null;
         }
+        foreach (var item in waves)
+        {
+            foreach ( var o in item.enemys)
+            {
+                DestroyImmediate(o);
+            }
+        }
     }
 
     [Serializable]

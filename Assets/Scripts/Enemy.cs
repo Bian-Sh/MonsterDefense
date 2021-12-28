@@ -53,6 +53,11 @@ public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
         {
             Destroy(gameObject);
         }
+        if (isRuning&&!GameManager.isPlaying)
+        {
+            isRuning = false;
+            agent.isStopped = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
