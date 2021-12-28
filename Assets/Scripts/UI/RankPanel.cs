@@ -21,7 +21,7 @@ public class RankPanel : MonoBehaviour
 
     private void OnCloseButtonClicked()
     {
-        gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 
     private void FillData()

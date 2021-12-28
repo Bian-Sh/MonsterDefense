@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    WaveManager waveManager; //敌人波次管理器
+    public WaveManager waveManager; //敌人波次管理器
     [Space(10)]
     /// <summary>昵称</summary>
     public List<string> nickName;
@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         ScoreManager.Instance.ResetData();
         //重新加载场景
         var scene = SceneManager.GetActiveScene();
+        Destroy(gameObject);
         SceneManager.LoadScene(scene.name);
     }
     #endregion
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isPlaying = false;
-        waveManager.StopCreateEnemy();
+        waveManager.StopCreateEnemy(false);
     }
 
 

@@ -21,12 +21,14 @@ public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
 
     [HideInInspector]
     public Wave wave; //我是属于谁的 （Wave）
-
+    [Header("自爆距离")]
+    public float distance=0.3f;
     private float cached_HP;
 
     public BloodEvent OnBloodChanged { get; set; } = new BloodEvent { };
     public float AT { get; set ; }
     private Collider m_collider;
+
 
     void Awake() => AT = aT;
 
@@ -49,7 +51,7 @@ public class Enemy : MonoBehaviour,IBloodPercentage,IAttack
 
     void Update()
     {
-        if (isRuning && !agent.pathPending && agent.remainingDistance < 1f)
+        if (isRuning && !agent.pathPending && agent.remainingDistance < distance)
         {
             Destroy(gameObject);
         }

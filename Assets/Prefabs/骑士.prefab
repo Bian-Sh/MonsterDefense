@@ -147,6 +147,7 @@ MonoBehaviour:
     delay: 0
     factor: 0
     enemys: []
+  distance: 0.3
 --- !u!95 &8681639381773076012
 Animator:
   serializedVersion: 3

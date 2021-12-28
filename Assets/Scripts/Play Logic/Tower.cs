@@ -19,7 +19,7 @@ public class Tower : MonoBehaviour, IBloodPercentage
     }
     private void OnTriggerEnter(Collider other)
     {
-                Debug.Log($"{nameof(Tower)}:4545");
+        // Debug.Log($"{nameof(Tower)}:4545");
         if (HP > 0)
         {
             var at = other.GetComponentInChildren<IAttack>();

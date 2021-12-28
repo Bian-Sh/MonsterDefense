@@ -26,13 +26,13 @@ public class WaveManager : MonoBehaviour
     Coroutine enemyCreateAction; //敌人生成的行为载体
 
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCreateEnemy();
-        }
-    }
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        StartCreateEnemy();
+    //    }
+    //}
 
     IEnumerator CreateEnemy()
     {
@@ -42,7 +42,7 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < item.num; i++)
             {
 
-                Debug.Log($"{nameof(WaveManager)}: 波次名称 = {item.name}");
+            //    Debug.Log($"{nameof(WaveManager)}: 波次名称 = {item.name}");
 
                 var delay = new WaitForSeconds(item.interval); // 怪兽生成的间隔
                 var index = Random.Range(0, item.prefabs.Length); // 随机一个怪兽的下标
@@ -93,7 +93,7 @@ public class WaveManager : MonoBehaviour
     /// <summary>
     /// 停止生成敌人
     /// </summary>
-    public void StopCreateEnemy() 
+    public void StopCreateEnemy(bool immediate=true) 
     {
         if (null!=enemyCreateAction)
         {
@@ -102,9 +102,17 @@ public class WaveManager : MonoBehaviour
         }
         foreach (var item in waves)
         {
-            foreach ( var o in item.enemys)
+            for (int i = 0; i < item.enemys.Count; i++)
             {
-                DestroyImmediate(o);
+                var go = item.enemys[i];
+                if (immediate)
+                {
+                DestroyImmediate(go);
+                }
+                else
+                {
+                    Destroy(go);
+                }
             }
         }
     }
