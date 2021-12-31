@@ -9,6 +9,7 @@ public enum TouchPadDirection
     Bottom = 2,
     Left = 1,
     Right = 3,
+    None = 4, 
 }
 /// <summary>
 /// 脚本用于判断你按下HTC vive TouchPad（上下左右）的哪一个区域了
@@ -18,7 +19,13 @@ public class TouchPadClickEventDispatcher : MonoBehaviour
     [Header("Touch Pad 点击事件")]
     public TouchPadClickEvent OnTouchPadClicked = new TouchPadClickEvent();
 
-    private void Start() => buttonAction.Activated.AddListener(OnButtonActionActived);
+    private void Start()
+    {
+        buttonAction.Activated.AddListener(OnButtonActionActived);
+        //当按键抬起时报告 None 
+        buttonAction.Deactivated.AddListener(v=>OnTouchPadClicked.Invoke( TouchPadDirection.None));
+    }
+
     private void OnButtonActionActived(bool arg0)
     {
         var angle = Vector2.SignedAngle(new Vector2(1, 1), new Vector2(hr.Value, vt.Value));
@@ -43,7 +50,6 @@ public class TouchPadClickEventDispatcher : MonoBehaviour
         }
         else
         {
-            //由于此方法打包时会被剥离，所以，我选择不使用宏包裹，声明：笔者对本行备注不负责
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
