@@ -9,6 +9,10 @@ public class HUDHolder : MonoBehaviour
 {
     public Transform hand;
     public Vector3 offset;
+    //定义旋转的角度的上限值
+    public float targetAngle_up=300;
+    //定义旋转的角度的下限值
+    public  float targetAngle_dn=280;
     public GameObject hud;
     public TextMeshPro id;
     public TextMeshPro score;
@@ -17,16 +21,15 @@ public class HUDHolder : MonoBehaviour
     void Update()
     {
         var angle = hand.transform.localEulerAngles[2];
-        angle = angle >= 180 ? angle - 360 : angle;
-        angle = Mathf.Abs(angle);
-        if (angle >= 125 && !hud.activeInHierarchy)
+        //在指定的上下限夹角范围内我们显示 HUD
+        if (angle >= targetAngle_dn&&angle<=targetAngle_up && !hud.activeInHierarchy)
         {
             hud.SetActive(true);
             id.text = $"昵称: {GameManager.Instance.player}";
             score.text = $"得分: {ScoreManager.Instance.score}";
             hud.transform.LookAt(head);
         }
-        else if (angle<125)
+        else if (angle < targetAngle_dn || angle > targetAngle_up)
         {
             hud.SetActive(false);
         }
